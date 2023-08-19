@@ -21,7 +21,8 @@ public class StudentDetailsDto implements Serializable {
 
     String gender;
 
-    Long phoneNumber;
+    @NotNull
+    long phoneNumber;
 
     int creditPoints;
 

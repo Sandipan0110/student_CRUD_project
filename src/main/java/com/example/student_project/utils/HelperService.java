@@ -19,7 +19,7 @@ public class HelperService {
         if (studentDetailsDto == null){
             return null;
         }
-        ValidationUtils.studentValidation(studentDetailsDto);
+        ValidationUtils.studentsValidation(studentDetailsDto);
         StudentDetails studentDetails = new StudentDetails();
         studentDetails.setName(studentDetailsDto.getName());
         studentDetails.setAge(studentDetailsDto.getAge());
@@ -39,7 +39,7 @@ public class HelperService {
             return null;
         }
         StudentDetailsDto studentDetailsDto = new StudentDetailsDto();
-        ValidationUtils.studentValidation(studentDetailsDto);
+        ValidationUtils.studentValidation(studentDetails);
         studentDetailsDto.setName(studentDetails.getName());
         studentDetailsDto.setAge(studentDetails.getAge());
         studentDetailsDto.setGender(studentDetails.getGender());
@@ -73,7 +73,7 @@ public class HelperService {
             return null;
         }
         CourseDetailsDto courseDetailsDto = new CourseDetailsDto();
-        ValidationUtils.courseValidation(courseDetailsDto);
+//        ValidationUtils.courseValidation(courseDetailsDto);
         courseDetailsDto.setName(courseDetails.getName());
         courseDetailsDto.setDescription(courseDetails.getDescription());
         courseDetailsDto.setMarks(courseDetails.getMarks());
@@ -98,7 +98,7 @@ public class HelperService {
             return null;
         }
         EmployeeDetailsDto employeeDetailsDto = new EmployeeDetailsDto();
-        ValidationUtils.employeeValidation(employeeDetailsDto);
+//        ValidationUtils.employeeValidation(employeeDetailsDto);
         employeeDetailsDto.setName(employeeDetails.getName());
         employeeDetailsDto.setDesignation(employeeDetails.getDesignation());
         employeeDetailsDto.setDepartment(employeeDetails.getDepartment());
@@ -106,24 +106,24 @@ public class HelperService {
 
     }
 
-    public StudentDetails updatedStudentDetails(StudentDetails entityStudentDetails, StudentDetailsDto studentDetailsDto) {
-        if (entityStudentDetails == null) {
+    public StudentDetails updatedStudentDetails(StudentDetails studentDetails, StudentDetailsDto studentDetailsDto) {
+        if (studentDetails == null) {
             return null;
         }
-        ValidationUtils.studentValidation(studentDetailsDto);
-        entityStudentDetails.setAge(studentDetailsDto.getAge());
-        entityStudentDetails.setGender(studentDetailsDto.getGender());
-        entityStudentDetails.setPhoneNumber(studentDetailsDto.getPhoneNumber());
-        entityStudentDetails.setCreditPoints(studentDetailsDto.getCreditPoints());
-        entityStudentDetails.setAddress(studentDetailsDto.getAddress());
+        ValidationUtils.studentsValidation(studentDetailsDto);
+        studentDetails.setAge(studentDetailsDto.getAge());
+        studentDetails.setGender(studentDetailsDto.getGender());
+        studentDetails.setPhoneNumber(studentDetailsDto.getPhoneNumber());
+        studentDetails.setCreditPoints(studentDetailsDto.getCreditPoints());
+        studentDetails.setAddress(studentDetailsDto.getAddress());
         List<CourseDetailsDto> courseDetailsDto = studentDetailsDto.getCourseDetailsDto();
-        List<CourseDetails> entityCourseDetails = entityStudentDetails.getCourseDetails();
+        List<CourseDetails> entityCourseDetails = studentDetails.getCourseDetails();
         List<CourseDetails> updatedCourseDetails = new ArrayList<>();
         for (int i = 0; i < entityCourseDetails.size(); i++) {
             updatedCourseDetails.add(updateCourseDetails(entityCourseDetails.get(i), courseDetailsDto.get(i)));
         }
-        entityStudentDetails.setCourseDetails(updatedCourseDetails);
-        return entityStudentDetails;
+        studentDetails.setCourseDetails(updatedCourseDetails);
+        return studentDetails;
     }
 
     public CourseDetails updateCourseDetails(CourseDetails entityCourseDetails, CourseDetailsDto courseDetailsDto) {

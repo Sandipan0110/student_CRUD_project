@@ -3,6 +3,7 @@ package com.example.student_project.utils;
 import com.example.student_project.dtos.CourseDetailsDto;
 import com.example.student_project.dtos.EmployeeDetailsDto;
 import com.example.student_project.dtos.StudentDetailsDto;
+import com.example.student_project.entity.StudentDetails;
 import com.example.student_project.exception.BadRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
@@ -44,7 +45,28 @@ public class ValidationUtils {
         return false;
     }
 
-    public static void studentValidation(StudentDetailsDto studentDetailsDto) {
+    public static void studentValidation(StudentDetails studentDetails) {
+        if (ObjectUtils.isEmpty(studentDetails.getName())) {
+            throw new BadRequestException(EMPTY_NAME);
+        }
+        if (ObjectUtils.isEmpty(studentDetails.getAge())) {
+            throw new BadRequestException("Age Should Not Be Empty");
+        }
+        if (ObjectUtils.isEmpty(studentDetails.getGender())) {
+            throw new BadRequestException("Gender Should Not Be Empty");
+        }
+        if (ObjectUtils.isEmpty(studentDetails.getPhoneNumber())) {
+            throw new BadRequestException("PhoneNumber Should Not Be Empty");
+        }
+        if (ObjectUtils.isEmpty(studentDetails.getCreditPoints())) {
+            throw new BadRequestException("CreditPoints Should Not Be Empty");
+        }
+        if (ObjectUtils.isEmpty(studentDetails.getAddress())) {
+            throw new BadRequestException("Address Should Not Be Empty");
+        }
+    }
+
+    public static void studentsValidation(StudentDetailsDto studentDetailsDto) {
         if (ObjectUtils.isEmpty(studentDetailsDto.getName())) {
             throw new BadRequestException(EMPTY_NAME);
         }

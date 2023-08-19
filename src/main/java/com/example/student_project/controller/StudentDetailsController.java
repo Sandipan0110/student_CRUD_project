@@ -24,62 +24,60 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/student")
+@RequestMapping("/api/student")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StudentDetailsController {
 
     @Autowired
     StudentDetailsService studentDetailsService;
 
-    @PostMapping(value = "/createStudent")
-    public OmuniResponse<String> addStudentDetails(@RequestBody StudentDetailsDto studentDetailsDto) {
-        return studentDetailsService.saveStudent(studentDetailsDto);
+    @PostMapping("/student")
+    public OmuniResponse<String> addStudent(@RequestBody StudentDetailsDto studentDetailsDto) {
+        return studentDetailsService.addStudent(studentDetailsDto);
     }
 
-    @GetMapping(value = "/fetchByCourseId/{courseId}")
+    @GetMapping("/studentByCourseId/{courseId}")
     public OmuniResponse<List<StudentDetailsDto>> studentsByCourseId(@PathVariable long courseId) {
-        return studentDetailsService.getStudentsByCourseId(courseId);
+        return studentDetailsService.fetchStudentsByCourseId(courseId);
     }
 
-    @GetMapping(value = "/fetchByPagination")
-    public OmuniResponse<List<StudentDetailsDto>> fetchAllStudents(@RequestParam(value = "pageNumber", defaultValue = "10", required = false)
-                                                                   @Min(value = 0) Integer pageNumber, @RequestParam(value = "pageSize", defaultValue = "1", required = false)
-                                                                   @Min(value = 1)
-                                                                   @Max(value = 50) Integer pageSize) {
+    @GetMapping("/studentByPagination")
+    public OmuniResponse<List<StudentDetailsDto>> fetchAllStudents(@RequestParam(value = "pageNumber", defaultValue = "0") Integer pageNumber,
+                                                                   @RequestParam(value = "pageSize", defaultValue = "10") @Min(1) @Max(50) Integer pageSize) {
         return studentDetailsService.fetchAllStudents(pageNumber, pageSize);
     }
 
-    @GetMapping(value = "/fetchByEmployeeId/{employeeId}")
+    @GetMapping("/studentByEmployeeId/{employeeId}")
     public OmuniResponse<List<StudentDetailsDto>> getStudentsDetailsByEmployeeId(@PathVariable long employeeId) {
-        return studentDetailsService.getStudentsByEmployeeId(employeeId);
+        return studentDetailsService.fetchStudentsByEmployeeId(employeeId);
     }
 
-    @PutMapping(value = "/updateStudentDetails")
+    @PutMapping("/student")
     public OmuniResponse<String> updateStudentDetailsByName(@Validated @RequestBody StudentDetailsDto studentDetailsDto) {
         return studentDetailsService.updateStudentDetails(studentDetailsDto);
     }
 
-    @DeleteMapping(value = "/deleteByNameAndCourseId/{name}/{courseId}")
+    @DeleteMapping("/studentByNameAndCourseId/{name}/{courseId}")
     public OmuniResponse<String> deleteStudentByNameAndCourseId(@PathVariable String name, @PathVariable long courseId) {
         return studentDetailsService.deleteByNameAndCourseId(name, courseId);
     }
 
-    @GetMapping(value = "/cacheByName/{name}")
+    @GetMapping("/cacheByName/{name}")
     public OmuniResponse<StudentDetailsDto> getStudentsByName(@PathVariable String name) {
-        return studentDetailsService.getStudentsByName(name);
+        return studentDetailsService.fetchStudentsByName(name);
     }
 
-    @GetMapping(value = "/cacheByCourseId/{courseId}")
+    @GetMapping("/cacheByCourseId/{courseId}")
     public OmuniResponse<CourseDetailsDto> getByCourseById(@PathVariable long courseId) {
-        return studentDetailsService.getCourseDetails(courseId);
+        return studentDetailsService.fetchCourseDetails(courseId);
     }
 
-    @GetMapping(value = "/cacheByEmployeeId/{employeeId}")
+    @GetMapping("/cacheByEmployeeId/{employeeId}")
     public OmuniResponse<EmployeeDetailsDto> getByEmployeeById(@PathVariable long employeeId) {
-        return studentDetailsService.getEmployeeDetails(employeeId);
+        return studentDetailsService.fetchEmployeeDetails(employeeId);
     }
 
-    @DeleteMapping(value = "/evictCache/StudentDetails")
+    @DeleteMapping("/evictCache/student")
     public void evictAllStudentDetailsInCache() {
         studentDetailsService.evictStudentCache();
     }

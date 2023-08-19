@@ -15,6 +15,8 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OmuniResponse<T> implements Serializable {
+
     T data;
-    T error;
+    String error;
+
 }

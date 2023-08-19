@@ -9,24 +9,24 @@ import java.util.List;
 
 public interface StudentDetailsService {
 
-    public OmuniResponse<String> saveStudent(StudentDetailsDto studentDetailsDto);
+    OmuniResponse<String> addStudent(StudentDetailsDto studentDetailsDto);
 
-    public OmuniResponse<List<StudentDetailsDto>> getStudentsByCourseId(long courseId);
+    OmuniResponse<List<StudentDetailsDto>> fetchStudentsByCourseId(long courseId);
 
-    public OmuniResponse<List<StudentDetailsDto>> fetchAllStudents(Integer pageNo, Integer pageSize);
+    OmuniResponse<List<StudentDetailsDto>> fetchAllStudents(Integer pageNo, Integer pageSize);
 
-    public OmuniResponse<List<StudentDetailsDto>> getStudentsByEmployeeId(long employeeId);
+    OmuniResponse<List<StudentDetailsDto>> fetchStudentsByEmployeeId(long employeeId);
 
-    public OmuniResponse<String> updateStudentDetails(StudentDetailsDto studentDetailsDto);
+    OmuniResponse<String> updateStudentDetails(StudentDetailsDto studentDetailsDto);
 
-    public OmuniResponse<String> deleteByNameAndCourseId(String name, long courseId);
+    OmuniResponse<String> deleteByNameAndCourseId(String name, long courseId);
 
-    public OmuniResponse<StudentDetailsDto> getStudentsByName(String name);
+    OmuniResponse<StudentDetailsDto> fetchStudentsByName(String name);
 
-    public OmuniResponse<CourseDetailsDto> getCourseDetails(long courseId);
+    OmuniResponse<CourseDetailsDto> fetchCourseDetails(long courseId);
 
-    public OmuniResponse<EmployeeDetailsDto> getEmployeeDetails(long employeeId);
+    OmuniResponse<EmployeeDetailsDto> fetchEmployeeDetails(long employeeId);
 
-    public void evictStudentCache();
+    void evictStudentCache();
 
 }
